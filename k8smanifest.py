@@ -8,6 +8,8 @@ parser = argparse.ArgumentParser(description='Generate a Kubernetes \
         Pod manifest.')
 parser.add_argument('context', type=str, \
                    help='kubectl context to use')
+parser.add_argument('namespace', type=str, \
+                   help='kubernetes namespace to use')
 parser.add_argument('-o', '--outputfile', metavar='-o', type=str, \
                     help='Name of the file to output the manifest to. \
                     Defaults to "manifest.ini"')
@@ -18,6 +20,7 @@ if args.outputfile:
     manifestFilename = args.outputfile
 
 contextName = args.context
+namespaceToManifest = args.namespace
 
 # Configs can be set in Configuration class directly or using helper utility
 config.load_kube_config(context=contextName)
@@ -26,7 +29,7 @@ outputManifest = open(manifestFilename, 'w')
 
 v1 = client.CoreV1Api()
 print("Listing pods with their versions:")
-ret = v1.list_namespaced_pod("jenkins", pretty=True)
+ret = v1.list_namespaced_pod(namespaceToManifest, pretty=True)
 for i in ret.items:
     for j in i.spec.containers:
         if j.image.find(':') != -1:
