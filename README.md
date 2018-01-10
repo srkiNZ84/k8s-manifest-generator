@@ -15,7 +15,7 @@ Make sure you have installed the Kubernetes Python client by running:
 
 and then run:
 
-  python2 k8smanifest.py [NAMESPACE] [KUBECTLCONTEXT] [OUTPUTFILE]
+  python2 k8smanifest.py KUBECTLCONTEXT [--outputfile -o OUTPUTFILE]
 
 NOTE: There's also an assumption that you have access to the Kubernetes API in question.
 
