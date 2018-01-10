@@ -2,11 +2,25 @@
 
 from kubernetes import client, config
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='Generate a Kubernetes \
+        Pod manifest.')
+parser.add_argument('context', type=str, \
+                   help='kubectl context to use')
+parser.add_argument('--outputfile', metavar='-o', type=str, \
+                    help='Name of the file to output the manifest to. \
+                    Defaults to "manifest.ini"')
+args = parser.parse_args()
 
 manifestFilename = 'manifest.ini'
+if args.outputfile:
+    manifestFilename = args.outputfile
+
+contextName = args.context
 
 # Configs can be set in Configuration class directly or using helper utility
-config.load_kube_config(context="foobar")
+config.load_kube_config(context=contextName)
 
 outputManifest = open(manifestFilename, 'w')
 
