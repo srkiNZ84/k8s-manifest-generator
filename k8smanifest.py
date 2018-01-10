@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='Generate a Kubernetes \
         Pod manifest.')
 parser.add_argument('context', type=str, \
                    help='kubectl context to use')
-parser.add_argument('--outputfile', metavar='-o', type=str, \
+parser.add_argument('-o', '--outputfile', metavar='-o', type=str, \
                     help='Name of the file to output the manifest to. \
                     Defaults to "manifest.ini"')
 args = parser.parse_args()
